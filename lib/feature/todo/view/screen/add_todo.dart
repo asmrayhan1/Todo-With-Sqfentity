@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../view_model/home_view_model.dart';
+import '../../view_model/todos_view_model/todo_view_model.dart';
 
 class AddTodo extends ConsumerStatefulWidget {
   const AddTodo({super.key});
@@ -82,7 +82,8 @@ class _AddTodoState extends ConsumerState<AddTodo> {
                   msgShow(true);
                 }
               },
-              child: Text("Insert", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w400))),
+              child: Text("Insert", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w400))
+          ),
         ],
       ),
     );

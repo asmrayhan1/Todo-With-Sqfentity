@@ -1,4 +1,4 @@
-import '../model/todo_model.dart';
+import '../../model/todo_model.dart';
 
 class TodoGenerics{
   List<TodoModel> myTodo;

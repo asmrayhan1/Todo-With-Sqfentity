@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../view_model/home_view_model.dart';
+import '../../view_model/todos_view_model/todo_view_model.dart';
 
 class UpdateTodo extends ConsumerStatefulWidget {
   final int? index;

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_sqfentity/feature/todo/model/todo_model.dart';
-import 'package:todo_sqfentity/feature/todo/view_model/home_view_generics.dart';
+import 'package:todo_sqfentity/feature/todo/view_model/todos_view_model/todo_view_generics.dart';
 
-import '../../../database/local/database_create.dart';
+import '../../../../database/local/database_create.dart';
 
 final homeProvider = StateNotifierProvider<HomeController, TodoGenerics> ((ref) => HomeController());
 
