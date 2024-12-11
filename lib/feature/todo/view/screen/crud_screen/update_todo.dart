@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../view_model/todos_view_model/todo_view_model.dart';
+import '../../../view_model/todos_view_model/todo_view_model.dart';
 
 class UpdateTodo extends ConsumerStatefulWidget {
-  final int? index;
-  const UpdateTodo({super.key, required this.index});
+  final int? id;
+  const UpdateTodo({super.key, required this.id});
 
   @override
   ConsumerState<UpdateTodo> createState() => _UpdateTodoState();
@@ -28,11 +28,16 @@ class _UpdateTodoState extends ConsumerState<UpdateTodo> {
     );
   }
 
+  _buildText() async{
+    await ref.read(homeProvider.notifier).dataFetchById(id: widget.id);
+    _descriptionController.text = await ref.watch(homeProvider).readTodo[0].description;
+    _titleController.text = await ref.watch(homeProvider).readTodo[0].title;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    _descriptionController.text = ref.read(homeProvider).myTodo[widget.index!].description;
-    _titleController.text = ref.read(homeProvider).myTodo[widget.index!].title;
+    _buildText();
     super.initState();
   }
 
@@ -92,7 +97,7 @@ class _UpdateTodoState extends ConsumerState<UpdateTodo> {
                 if (_titleController.text.trim().length == 0 || _descriptionController.text.trim().length == 0) msgShow(false);
                 else {
                   await ref.read(homeProvider.notifier).updateTodo(
-                    id: ref.watch(homeProvider).myTodo[widget.index!].id,
+                    id: widget.id,
                     title: _titleController.text.trim(),
                     description: _descriptionController.text.trim(),
                   );

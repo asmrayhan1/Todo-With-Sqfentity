@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../view_model/todos_view_model/todo_view_model.dart';
+import '../../../view_model/todos_view_model/todo_view_model.dart';
 
 class AddTodo extends ConsumerStatefulWidget {
-  const AddTodo({super.key});
+  final int? categoryId;
+  const AddTodo({super.key, this.categoryId});
 
   @override
   ConsumerState<AddTodo> createState() => _AddTodoState();
@@ -77,6 +78,7 @@ class _AddTodoState extends ConsumerState<AddTodo> {
                   await ref.read(homeProvider.notifier).addTodo(
                     title: _titleController.text.trim(),
                     description: _descriptionController.text.trim(),
+                    categoryId: widget.categoryId?? 0
                   );
                   Navigator.of(context).pop();
                   msgShow(true);
