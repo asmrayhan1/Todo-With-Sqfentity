@@ -4,7 +4,8 @@ class TodoModel{
   String description;
   String pickerColor;
   bool isSelected;
-  TodoModel({this.id, required this.title, required this.description, this.pickerColor = "0xffe6e6e6", this.isSelected = false});
+  int? categoryId;
+  TodoModel({this.id, required this.title, required this.description, this.pickerColor = "0xffe6e6e6", this.isSelected = false, this.categoryId});
 
   // Convert TodoModel to a map for database operations
   Map<String, dynamic> toMap() {
@@ -13,7 +14,8 @@ class TodoModel{
       'title': title,
       'isSelected': isSelected,
       'description': description,
-      'pickerColor' : pickerColor
+      'pickerColor' : pickerColor,
+      'categoryId' : categoryId
     };
   }
 
@@ -25,7 +27,8 @@ class TodoModel{
       title: map['title'] ?? "No Title Found",
       isSelected: map['isSelected'] ?? false, // Convert int to bool
       description : map['description'] ?? "No Description Found",
-      pickerColor: map['pickerColor'] ?? "0xffe6e6e6"
+      pickerColor: map['pickerColor'] ?? "0xffe6e6e6",
+      categoryId: map['categoryId']
     );
   }
 }

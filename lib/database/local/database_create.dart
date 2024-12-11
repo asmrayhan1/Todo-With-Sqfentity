@@ -28,12 +28,13 @@ const tableTodo = SqfEntityTable(
     SqfEntityField('description', DbType.text),
     SqfEntityField('pickerColor', DbType.text),
     SqfEntityField('isSelected', DbType.bool, defaultValue: false),
+    //SqfEntityField('categoryId', DbType.integer, defaultValue: 0),
     // Relationship definition: Todo -> Category (One-to-Many)
     SqfEntityFieldRelationship(
       parentTable: tableCategory,
       relationType: RelationType.ONE_TO_MANY,
       deleteRule: DeleteRule.CASCADE, // If a category is deleted, delete related products
-      fieldName: 'CategoryId',
+      //fieldName: 'CategoryId',
       defaultValue: 0, // Default value for categoryId if not provided
     ),
   ],

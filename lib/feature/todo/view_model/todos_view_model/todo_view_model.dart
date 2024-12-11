@@ -15,9 +15,25 @@ class HomeController extends StateNotifier<TodoGenerics>{
     state = state.update(todos: currentTodos);
   }
 
-  addTodo({required String title, required String description}) async{
-    await Todo(title: title, description: description).save();
+  addTodo({required String title, required String description, required int categoryId}) async{
+    final check = await Todo(title: title, description: description, categoryId: categoryId).save();
+
+    final current = await Todo().select().categoryId.equals(categoryId).orderByDesc('id').toList();
+    List<TodoModel> myList = current.map((e) => TodoModel.fromMap(e.toMap())).toList();
+    state = state.update(tmp: myList);
+
+    print("After adding, categoryId = ${check}");
     todoInitialize();
+
+
+    // final current = await Todo().select().categoryId.equals(6).orderByDesc('id').toList();
+    // List<TodoModel> currentTodos = current.map((e) => TodoModel.fromMap(e.toMap())).toList();
+    // currentTodos.forEach((e){
+    //   print(e.toMap());
+    // });
+    // final n = state.myTodo.length;
+    // print(state.myTodo[n-1].toMap());
+
   }
 
   deleteTodo({required int id}) async{
@@ -26,7 +42,23 @@ class HomeController extends StateNotifier<TodoGenerics>{
   }
 
   updateTodo({required int? id, String? title, String? description}) async{
-    await Todo().select().id.equals(id).update(TodoModel(title: title!, description: description!).toMap());
+    await Todo(id: id, title: title, description: description).save();//await //Todo().select().id.equals(id).update(TodoModel(title: title!, description: description!).toMap());
+
+    final current = await Todo().select().id.equals(id).orderByDesc('id').toList();
+    List<TodoModel> myList = current.map((e) => TodoModel.fromMap(e.toMap())).toList();
+    state = state.update(tmp2: myList);
     todoInitialize();
+  }
+
+  dataFetchById({required int? id}) async{
+    final current = await Todo().select().id.equals(id).orderByDesc('id').toList();
+    List<TodoModel> myList = current.map((e) => TodoModel.fromMap(e.toMap())).toList();
+    state = state.update(tmp2: myList);
+  }
+
+  dataFetch({required int? categoryId}) async{
+    final current = await Todo().select().categoryId.equals(categoryId).orderByDesc('id').toList();
+    List<TodoModel> myList = current.map((e) => TodoModel.fromMap(e.toMap())).toList();
+    state = state.update(tmp: myList);
   }
 }
